@@ -35,7 +35,7 @@ router.post("/", async function (req, res) {
         logTel,
         logEmail,
         attribute,
-        status: 1,
+        status: 0,
     });
     res.send(data);
 });
