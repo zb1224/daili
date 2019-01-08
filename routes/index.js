@@ -35,7 +35,18 @@ router.post("/", async function (req, res) {
         logTel,
         logEmail,
         attribute,
-        status: 0,
+        status: "0",
+    });
+    res.send(data);
+});
+
+// 查询用户信息
+router.get("/", async function (req, res) {
+    let {
+        logTel
+    } = req.query;
+    let data = await client.get('/users', {
+        logTel
     });
     res.send(data);
 });
