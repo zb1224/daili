@@ -16,6 +16,7 @@ router.post('/login', async function (req, res) {
         logPwd,
         findType: "exact"
     });
+    req.session.user = data[0];
     res.send(data);
 });
 
