@@ -51,4 +51,16 @@ router.get("/", async function (req, res) {
     res.send(data);
 });
 
+// 获取session
+router.get('/getSession', function (req, res) {
+    let data = req.session.user;
+    // console.log(data);
+    res.send(data || {});
+});
+// 删除session
+router.get('/removeSession', function (req, res) {
+    req.session.user = null;
+    res.send('删除成功');
+});
+
 module.exports = router;
