@@ -6,14 +6,9 @@ var logger = require('morgan');
 
 const session = require('express-session');
 
-var indexRouter = require('./routes/index');
+
 var usersRouter = require('./routes/users');
-var infosRouter = require('./routes/infos');
-var cinemasRouter = require('./routes/cinemas');
-var filmsRouter = require('./routes/films');
-var filmAndCinemasRouter = require('./routes/filmAndCinemas');
-var soonsRouter = require('./routes/soons');
-var hotsRouter = require('./routes/hots');
+var shopRouter = require('./routes/shop');
 
 var app = express();
 
@@ -35,15 +30,9 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/index', indexRouter);
+
 app.use('/users', usersRouter);
-app.use('/infos', infosRouter);
-app.use('/cinemas', cinemasRouter);
-app.use('/films', filmsRouter);
-app.use('/filmAndCinemas', filmAndCinemasRouter);
-app.use('/soons', soonsRouter);
-app.use('/hots', hotsRouter);
+app.use('/shop', shopRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
