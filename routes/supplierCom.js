@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
+
+const multiparty = require("multiparty");
+const path = require("path");
 const session = require('express-session');
 const client = require("ykt-http-client");
 client.url("127.0.0.1:8080");
-const multiparty = require("multiparty");
-const path = require("path");
 
 // 显示所有商品
 router.get("/", async function (req, res) {
@@ -15,7 +16,7 @@ router.get("/", async function (req, res) {
     }
     let data = await client.get("/supplierCom", { page, rows, ...seraObj })
     res.send(data);
-})
+});
 
 // 通过商品ID来查询商品
 router.get('/:id', async function (req, res) {

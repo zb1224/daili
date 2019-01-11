@@ -13,6 +13,7 @@ var shopRouter = require('./routes/shop');
 var supplierRouter = require('./routes/supplier');
 var shopComRouter = require('./routes/shopCom');
 var supplierComRouter = require('./routes/supplierCom');
+var ordersRouter = require("./routes/orders");
 
 var app = express();
 
@@ -45,6 +46,7 @@ app.use('/shop', shopRouter);
 app.use('/supplier', supplierRouter);
 app.use('/shopCom', shopComRouter);
 app.use('/supplierCom', supplierComRouter);
+app.use('/orders', ordersRouter);
 
 
 
