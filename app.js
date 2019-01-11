@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var supplierRouter = require('./routes/supplier');
 var supplierComRouter = require('./routes/supplierCom');
+var ordersRouter = require("./routes/orders");
 
 var app = express();
 
@@ -39,6 +40,7 @@ app.use('/index', indexRouter);
 app.use('/users', usersRouter);
 app.use('/supplier', supplierRouter);
 app.use('/supplierCom', supplierComRouter);
+app.use('/orders', ordersRouter);
 
 
 
