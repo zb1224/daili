@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
+
 const session = require('express-session');
 const client = require("ykt-http-client");
 client.url("127.0.0.1:8080");
-
 
 //查询
 router.get("/", async function (req, res) {
@@ -49,6 +49,5 @@ router.put("/:id", async function (req, res) {
   await client.put("/users/" + id, { logTel, logPwd, Name, attribute, status });
   res.send({ status: 1 });
 })
-
 
 module.exports = router;
