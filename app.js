@@ -8,13 +8,10 @@ const session = require('express-session');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var infosRouter = require('./routes/infos');
-var cinemasRouter = require('./routes/cinemas');
-var filmsRouter = require('./routes/films');
-var filmAndCinemasRouter = require('./routes/filmAndCinemas');
-var soonsRouter = require('./routes/soons');
-var hotsRouter = require('./routes/hots');
-
+var petMasterRouter = require('./routes/petMaster');
+var shopRouter = require('./routes/shop');
+var supplierRouter = require('./routes/supplier');
+var shopComRouter = require('./routes/shopCom');
 var app = express();
 
 // view engine setup
@@ -38,13 +35,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
-app.use('/infos', infosRouter);
-app.use('/cinemas', cinemasRouter);
-app.use('/films', filmsRouter);
-app.use('/filmAndCinemas', filmAndCinemasRouter);
-app.use('/soons', soonsRouter);
-app.use('/hots', hotsRouter);
-
+app.use('/petMaster', petMasterRouter);
+app.use('/shop', shopRouter);
+app.use('/supplier', supplierRouter);
+app.use('/shopCom', shopComRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

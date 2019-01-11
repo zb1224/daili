@@ -16,21 +16,26 @@ router.get("/", async function (req, res) {
   if (type) {
     seraObj = { status: "1", [type]: text };//正则表达式
   }
-  let data = await client.get("/users", { page, rows, ...seraObj })
+  let data = await client.get("/supplier", { page, rows, ...seraObj,submitType: "findJoin", ref: ["users"] })
   res.send(data);
 })
 
 //通过ID查询
 router.get("/:id", async function (req, res) {
   let id = req.params.id;
-  let data = await client.get("/users/" + id);
+  let data = await client.get("/supplier/" + id, { submitType: "findJoin", ref: ["users"] });
   res.send(data);
 })
 
 //增加
 router.post("/", async function (req, res) {
-  let { logTel, logPwd, logEmail, Name, attribute, status } = req.body;
-  let data = await client.post("/users", { logTel, logPwd, logEmail, Name, attribute, status });
+  let { supName, supAddr, supTel, supInternet, supLicense, supImg, supRemarks,status, users } = req.body;
+  let data = await client.post("/supplier", {
+    supName, supAddr, supTel, supInternet, supLicense, supImg, supRemarks,status, users: {
+      $ref: "users",
+      $id: users,
+    }
+  });
   res.send({ status: 1 });
 });
 
@@ -38,15 +43,20 @@ router.post("/", async function (req, res) {
 //删除
 router.delete("/:id", async function (req, res) {
   let id = req.params.id;
-  await client.delete("/users/" + id);
+  await client.delete("/supplier/" + id);
   res.send({ status: 1 });
 })
 
 //修改
 router.put("/:id", async function (req, res) {
   let id = req.params.id;
-  let { logTel, logPwd, Name, attribute, status } = req.body;
-  await client.put("/users/" + id, { logTel, logPwd, Name, attribute, status });
+  let { supName, supAddr, supTel, supInternet, supLicense, supImg, supRemarks,status, users } = req.body;
+  await client.put("/supplier/" + id, {
+    supName, supAddr, supTel, supInternet, supLicense, supImg, supRemarks,status, users: {
+      $ref: "users",
+      $id: users,
+    }
+  });
   res.send({ status: 1 });
 })
 
