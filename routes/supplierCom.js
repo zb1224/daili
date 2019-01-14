@@ -1,27 +1,26 @@
 var express = require('express');
 var router = express.Router();
-
-const multiparty = require("multiparty");
-const path = require("path");
 const session = require('express-session');
 const client = require("ykt-http-client");
 client.url("127.0.0.1:8080");
+const multiparty = require("multiparty");
+const path = require("path");
 
 // 显示所有商品
 router.get("/", async function (req, res) {
-    let { type, text, page, rows } = req.query;
+    let { type, text, page, rows, supplierId } = req.query;
     let seraObj = {};
     if (type) {
         seraObj = { [type]: text };//正则表达式
     }
-    let data = await client.get("/supplierCom", { page, rows, ...seraObj })
+    let data = await client.get("/supplierCom", { page, rows, submitType: "findJoin", ref: ["supplier"], "supplier.$id": supplierId, ...seraObj })
     res.send(data);
-});
+})
 
 // 通过商品ID来查询商品
 router.get('/:id', async function (req, res) {
     let id = req.params.id;
-    let data = await client.get('/supplierCom/' + id, { submitType: "findJoin", ref: "classes" });
+    let data = await client.get('/supplierCom/' + id, { submitType: "findJoin", ref: "supplier" });
     res.send(data);
 })
 
@@ -29,14 +28,18 @@ router.get('/:id', async function (req, res) {
 router.post("/", async function (req, res) {
     let { comName, comKind, comComponent, comSpecifications, exclusiveSpecifications, packingSpecifications,
         Flavor, specialFunctions, place, dateProduction, qualityDate, supplyNumber, characteristicText, price,
-        productBigImg, productSmallImg } = req.body;
+        productBigImg, productSmallImg, supplierId } = req.body;
     productSmallImg = productSmallImg && JSON.parse(productSmallImg)
-    await client.post('/supplierCom', {
+    let data = await client.post('/supplierCom', {
         comName, comKind, comComponent, comSpecifications, exclusiveSpecifications, packingSpecifications,
         Flavor, specialFunctions, place, dateProduction, qualityDate, supplyNumber, characteristicText, price,
-        productBigImg, productSmallImg
+        productBigImg, productSmallImg, supplier: {
+            $ref: "supplier",
+            $id: supplierId
+        }
     });
-    res.send({ status: 1 });
+    // res.send({ status: 1 });
+    res.send(data);
 })
 
 // 修改商品
@@ -45,13 +48,13 @@ router.put('/:id', async function (req, res, next) {
     let {
         comName, comKind, comComponent, comSpecifications, exclusiveSpecifications, packingSpecifications,
         Flavor, specialFunctions, place, dateProduction, qualityDate, supplyNumber, characteristicText, price,
-        productBigImg
+        productBigImg, productSmallImg
     } = req.body
-    // productSmallImg = productSmallImg && JSON.parse(productSmallImg)
+    productSmallImg = productSmallImg && JSON.parse(productSmallImg)
     await client.put("/supplierCom/" + id, {
         comName, comKind, comComponent, comSpecifications, exclusiveSpecifications, packingSpecifications,
         Flavor, specialFunctions, place, dateProduction, qualityDate, supplyNumber, characteristicText, price,
-        productBigImg
+        productBigImg, productSmallImg
         // supplier: {
         //     $ref: "supplier",
         //     $id: supplierId

@@ -18,7 +18,7 @@ router.get("/", async function (req, res) {
     if (type) {
         seraObj = { status: "1", [type]: text };//正则表达式
     }
-    let data = await client.get("/supplier", { page, rows, ...seraObj, submitType: "findJoin", ref: ["users"] })
+    let data = await client.get("/supplier", { page, rows, ...seraObj, submitType: "findJoin", ref: ["users"]})
     res.send(data);
 })
 
