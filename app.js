@@ -13,7 +13,8 @@ var shopRouter = require('./routes/shop');
 var supplierRouter = require('./routes/supplier');
 var shopComRouter = require('./routes/shopCom');
 var supplierComRouter = require('./routes/supplierCom');
-
+var ordersRouter = require('./routes/orders');
+var mapRouter = require('./routes/map');
 var app = express();
 
 // view engine setup
@@ -45,8 +46,8 @@ app.use('/shop', shopRouter);
 app.use('/supplier', supplierRouter);
 app.use('/shopCom', shopComRouter);
 app.use('/supplierCom', supplierComRouter);
-
-
+app.use('/orders', ordersRouter);
+app.use('/map', mapRouter);
 
 
 // catch 404 and forward to error handler

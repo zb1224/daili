@@ -7,12 +7,17 @@ client.url("127.0.0.1:8080");
 
 //查询
 router.get("/", async function (req, res) {
-    let { type, text, page, rows } = req.query;
+    let { type, text, page, rows, usersId } = req.query;
     let seraObj = {};
+    let data
     if (type) {
         seraObj = { status: "1", [type]: text };//正则表达式
     }
-    let data = await client.get("/shop", { page, rows, ...seraObj, submitType: "findJoin", ref: ["users"] })
+    if (usersId) {
+        data = await client.get("/shop", { page, rows, submitType: "findJoin", ref: ["users"], "users.$id": usersId, ...seraObj })
+    } else {
+        data = await client.get("/shop", { page, rows, submitType: "findJoin", ref: ["users"], ...seraObj })
+    }
     res.send(data);
 })
 
@@ -47,7 +52,7 @@ router.delete("/:id", async function (req, res) {
 router.put("/:id", async function (req, res) {
     let id = req.params.id;
     let { shopName, LicenseNumber, LicenseiImg, addr, Location, city, legalPerson, Tel, indexImg, characteristic, VIPLeve, Commission, status, Employee, users } = req.body;
-    console.log("状态：",status)
+    console.log("状态：", status)
     await client.put("/shop/" + id, {
         shopName, LicenseNumber, LicenseiImg, addr, Location, city, legalPerson, Tel, indexImg, characteristic, VIPLeve, Commission, status, Employee, users: {
             $ref: "users",
