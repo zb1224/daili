@@ -27,9 +27,9 @@ router.get("/", async function (req, res) {
     let data = await client.get("/orders", {
         page,
         rows,
-        submitType: "findJoin",
-        ref: "shop",
-        "shop.$id": shopID,
+        // submitType: "findJoin",
+        // ref: "shop",
+        // "shop.$id": shopID,
         ...seraObj,
     });
     res.send(data);
