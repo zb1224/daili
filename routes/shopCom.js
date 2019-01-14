@@ -17,7 +17,7 @@ router.get("/", async function (req, res) {
         if (type) {
             seraObj = { [type]: text };//正则表达式
         }
-        let data = await client.get("/shopCom", { page, rows, submitType: "findJoin", ref: "shop", "shop.$id": shopId, ...seraObj })
+        let data = await client.get("/shopCom", { page, rows, submitType: "findJoin", ref: ["shop","supplier"], "shop.$id": shopId, ...seraObj })
         res.send(data);
     }
 })
