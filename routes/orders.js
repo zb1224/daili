@@ -8,16 +8,231 @@ const client = require("ykt-http-client");
 client.url("127.0.0.1:8080");
 
 router.get('/statistics', async function (req, res) {
-    let { type } = req.query;
-    let data = await client.get("/orders", { submitType: "findJoin", ref: ["shop", "petMaster"] });
+    let {
+        type
+    } = req.query;
+    let data = await client.get("/orders", {
+        submitType: "findJoin",
+        ref: ["shop", "petMaster"]
+    });
     let Arr,
-        wlmqObj = { city: "乌鲁木齐市", year2019: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 }, year2018: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 } },
-        ktObj = { city: "奎屯市", year2019: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 }, year2018: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 } },
-        aksObj = { city: "阿克苏市", year2019: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 }, year2018: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 } },
-        klmyObj = { city: "克拉玛依市", year2019: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 }, year2018: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 } },
-        cdObj = { city: "成都市", year2019: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 }, year2018: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 } },
-        dyObj = { city: "德阳市", year2019: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 }, year2018: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 } },
-        myObj = { city: "绵阳市", year2019: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 }, year2018: { month1: 0, month2: 0, month3: 0, month4: 0, month5: 0, month6: 0, month7: 0, month8: 0, month9: 0, month10: 0, month11: 0, month12: 0 } };
+        wlmqObj = {
+            city: "乌鲁木齐市",
+            year2019: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            },
+            year2018: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            }
+        },
+        ktObj = {
+            city: "奎屯市",
+            year2019: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            },
+            year2018: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            }
+        },
+        aksObj = {
+            city: "阿克苏市",
+            year2019: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            },
+            year2018: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            }
+        },
+        klmyObj = {
+            city: "克拉玛依市",
+            year2019: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            },
+            year2018: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            }
+        },
+        cdObj = {
+            city: "成都市",
+            year2019: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            },
+            year2018: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            }
+        },
+        dyObj = {
+            city: "德阳市",
+            year2019: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            },
+            year2018: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            }
+        },
+        myObj = {
+            city: "绵阳市",
+            year2019: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            },
+            year2018: {
+                month1: 0,
+                month2: 0,
+                month3: 0,
+                month4: 0,
+                month5: 0,
+                month6: 0,
+                month7: 0,
+                month8: 0,
+                month9: 0,
+                month10: 0,
+                month11: 0,
+                month12: 0
+            }
+        };
     if (type == "Com") {
         console.log(data[0].buyTime)
         console.log(data[0].buyTime.split("/"))
@@ -27,7 +242,8 @@ router.get('/statistics', async function (req, res) {
     }
     Arr = [wlmqObj, ktObj, aksObj, klmyObj, cdObj, dyObj, myObj]
     res.send(Arr);
-    function choose(type){
+
+    function choose(type) {
         data.forEach(function (item) {
             if (item.orderContent == type) {
                 if (item.shop.city[1] == "乌鲁木齐市") {
@@ -772,19 +988,28 @@ router.get("/", async function (req, res) {
     let data
     if (shopId) {
         data = await client.get("/orders", {
-            page, rows, submitType: "findJoin", ref: ["shop", "petMaster"],
+            page,
+            rows,
+            submitType: "findJoin",
+            ref: ["shop", "petMaster"],
             "shop.$id": shopId,
             ...seraObj,
         });
     } else if (petMasterId) {
         data = await client.get("/orders", {
-            page, rows, submitType: "findJoin", ref: ["shop", "petMaster"],
+            page,
+            rows,
+            submitType: "findJoin",
+            ref: ["shop", "petMaster"],
             "petMaster.$id": petMasterId,
             ...seraObj,
         });
     } else {
         data = await client.get("/orders", {
-            page, rows, submitType: "findJoin", ref: ["shop", "petMaster"],
+            page,
+            rows,
+            submitType: "findJoin",
+            ref: ["shop", "petMaster"],
             ...seraObj,
         });
     }
@@ -845,12 +1070,16 @@ router.put('/:id', async function (req, res, next) {
         buyTime,
         status: status || "0",
     })
-    res.send({ status: 1 });
+    res.send({
+        status: 1
+    });
 });
 
 router.delete("/:id", async function (req, res) {
     let id = req.params.id;
     await client.delete("/orders/" + id);
-    res.send({ status: 1 });
+    res.send({
+        status: 1
+    });
 })
 module.exports = router;
