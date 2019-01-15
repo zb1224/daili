@@ -7,16 +7,16 @@ client.url("127.0.0.1:8080");
 
 //查询
 router.get("/", async function (req, res) {
-    let { type, text, page, rows, usersId } = req.query;
+    let { type, text, page, rows,usersId } = req.query;
     let seraObj = {};
-    let data
+    let data;
     if (type) {
         seraObj = { status: "1", [type]: text };//正则表达式
     }
-    if (usersId) {
-        data = await client.get("/shop", { page, rows, submitType: "findJoin", ref: ["users"], "users.$id": usersId, ...seraObj })
-    } else {
-        data = await client.get("/shop", { page, rows, submitType: "findJoin", ref: ["users"], ...seraObj })
+    if(usersId){
+        data = await client.get("/shop", { page, rows, ...seraObj, submitType: "findJoin", ref: ["users"],"users.$id": usersId })
+    }else{
+        data = await client.get("/shop", { page, rows, ...seraObj, submitType: "findJoin", ref: ["users"] })
     }
     res.send(data);
 })
