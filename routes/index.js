@@ -26,6 +26,14 @@ router.get('/', async function (req, res) {
     }
 });
 
+// 查询用户是否有公司
+router.get('/supplier', async function (req, res) {
+    let {usersId } = req.query;
+    let data = await client.get('/supplier', {submitType: "findJoin", ref: "users","users.$id": usersId })
+    res.send(data);
+   console.log(data);
+})
+
 //上传图片
 router.post('/upload', function (req, res) {
     let form = new multiparty.Form({
