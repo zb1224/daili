@@ -131,15 +131,15 @@ router.get('/salesvolume',async function(req,res){
     res.send(data);
 });    
 
-//     //获取session
-// router.get('/getSession', function (req, res) {
-//     //  res.send("获取session:"+req.session.phone)
-//     // console.log(req.session.name)
-//     res.send(req.session)
-//   })
-//   //删除session
-//   router.get('/removeSession', function (req, res) {
-//     req.session.name = null;
-//     res.send("删除成功");
-//   })
+    //获取session
+router.get('/getSession', function (req, res) {
+    //  res.send("获取session:"+req.session.phone)
+    // console.log(req.session.name)
+    res.send(req.session)
+  })
+  //删除session
+  router.get('/removeSession', function (req, res) {
+    req.session.name = null;
+    res.send("删除成功");
+  })
 module.exports = router;

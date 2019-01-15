@@ -1055,14 +1055,18 @@ router.post("/", async function (req, res) {
 router.put('/:id', async function (req, res, next) {
     let id = req.params.id
     let {
-        shopId,
-        petMasterID,
+       
         orderContent,
         orderCommoditys,
         orderStatus,
         buyTime,
         status
     } = req.body
+    console.log( orderContent,
+        orderCommoditys,
+        orderStatus,
+        buyTime,
+        status)
     await client.put("/orders/" + id, {
         orderContent,
         orderCommoditys,
