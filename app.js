@@ -13,6 +13,9 @@ var shopRouter = require('./routes/shop');
 var supplierRouter = require('./routes/supplier');
 var shopComRouter = require('./routes/shopCom');
 var supplierComRouter = require('./routes/supplierCom');
+var shoperInfoRouter = require('./routes/shoperInfo');
+var comSalesCountRouter = require('./routes/comSalesCount');
+var comSalesMoneyRouter = require('./routes/comSalesMoney');
 
 var app = express();
 
@@ -45,6 +48,9 @@ app.use('/shop', shopRouter);
 app.use('/supplier', supplierRouter);
 app.use('/shopCom', shopComRouter);
 app.use('/supplierCom', supplierComRouter);
+app.use('/shoperInfo', shoperInfoRouter);
+app.use('/comSalesCount', comSalesCountRouter);
+app.use('/comSalesMoney', comSalesMoneyRouter);
 
 
 
