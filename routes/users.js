@@ -20,6 +20,17 @@ router.get("/", async function (req, res) {
   res.send(data);
 })
 
+router.get("/unusers", async function (req, res) {
+  let { type, text } = req.query;
+
+  let seraObj = {};
+  if (type) {
+    seraObj = { status: "1", [type]: text };//正则表达式
+  }
+  let data = await client.get("/users", { ...seraObj })
+  res.send(data);
+})
+
 //通过ID查询
 router.get("/:id", async function (req, res) {
   let id = req.params.id;
