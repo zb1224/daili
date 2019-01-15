@@ -8,12 +8,12 @@ client.url("127.0.0.1:8080");
 
 // 显示供货商信息
 router.get('/', async function (req, res) {
-    let { type, text, page, rows,usersId } = req.query;
+    let { type, text, page, rows, usersId } = req.query;
     let serObj = {};
     if (type) {
         serObj[type] = { [type]: value };
     }
-    let data = await client.get('/supplier', { page, rows, submitType: "findJoin", ref: "users","users.$id": usersId, ...serObj })
+    let data = await client.get('/supplier', { page, rows, submitType: "findJoin", ref: "users", "users.$id": usersId, ...serObj })
     res.send(data);
    console.log(data);
 })
@@ -22,7 +22,7 @@ router.get('/', async function (req, res) {
 router.get('/:id', async function (req, res) {
     let id = req.params.id;
     // console.log(_id);
-    let data = await client.get('/supplier/' + id,{ submitType: "findJoin", ref: ["users"] });
+    let data = await client.get('/supplier/' + id, { submitType: "findJoin", ref: ["users"] });
     res.send(data);
 });
 
@@ -35,8 +35,10 @@ router.post('/', async function (req, res) {
         supInternet,
         supLicense,
         supImg,
-        supRemarks
+        supRemarks,
+        usersId
     } = req.query;
+    console.log("id",usersId);
     let data = await client.post('/supplier', {
         supName,
         supAddr,
@@ -45,7 +47,11 @@ router.post('/', async function (req, res) {
         supLicense,
         supImg,
         supRemarks,
-        status: "0"
+        status: "0",
+        users: {
+            $ref: "users",
+            $id: usersId,
+        }
     })
     res.send(data);
 });
@@ -60,7 +66,8 @@ router.put('/:id', async function (req, res) {
         supInternet,
         supLicense,
         supImg,
-        supRemarks
+        supRemarks,
+        // users
     } = req.query;
     console.log(id, supName);
     let data = await client.put('/supplier/' + id, {
@@ -71,7 +78,11 @@ router.put('/:id', async function (req, res) {
         supLicense,
         supImg,
         supRemarks,
-        status: "0"
+        status: "0",
+        // users: {
+        //     $ref: "users",
+        //     $id: users,
+        // }
     })
     res.send(data);
 });
