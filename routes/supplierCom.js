@@ -8,19 +8,19 @@ const path = require("path");
 
 // 显示所有商品
 router.get("/", async function (req, res) {
-    let { type, text, page, rows, supplierId } = req.query;
+    let { type, text, page, rows,supplierId } = req.query;
     let seraObj = {};
     if (type) {
         seraObj = { [type]: text };//正则表达式
     }
-    let data = await client.get("/supplierCom", { page, rows, submitType: "findJoin", ref: ["supplier"], "supplier.$id": supplierId, ...seraObj })
+    let data = await client.get("/supplierCom", { page, rows, submitType: "findJoin", ref: "supplier", "supplier.$id": supplierId, ...seraObj })
     res.send(data);
 })
 
 // 通过商品ID来查询商品
 router.get('/:id', async function (req, res) {
     let id = req.params.id;
-    let data = await client.get('/supplierCom/' + id, { submitType: "findJoin", ref: "supplier" });
+    let data = await client.get('/supplierCom/' + id,{submitType: "findJoin", ref: "supplier"});
     res.send(data);
 })
 
@@ -39,6 +39,7 @@ router.post("/", async function (req, res) {
         }
     });
     // res.send({ status: 1 });
+    console.log(data);
     res.send(data);
 })
 

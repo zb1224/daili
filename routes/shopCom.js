@@ -17,7 +17,7 @@ router.get("/", async function (req, res) {
         if (type) {
             seraObj = { [type]: text };//正则表达式
         }
-        let data = await client.get("/shopCom", { page, rows, submitType: "findJoin", ref: "shop", "shop.$id": shopId, ...seraObj })
+        let data = await client.get("/shopCom", { page, rows, submitType: "findJoin", ref: ["shop","supplier"], "shop.$id": shopId, ...seraObj })
         res.send(data);
     }
 })
@@ -42,11 +42,11 @@ router.get('/:id', async function (req, res) {
     console.log("111",req.query)
     if (type == "findSupplierComById") {
         // let data = await client.get('/supplierCom/' + id, { submitType: "findJoin", ref: "supplierCom" });
-        let data = await client.get('/supplierCom/' + id, { submitType: "findJoin", ref: "shop" });
+        let data = await client.get('/supplierCom/' + id, { submitType: "findJoin", ref: ["supplier"] });
         res.send(data);
     } else {
         // let data = await client.get('/shopCom/' + id, { submitType: "findJoin", ref: "shopCom" });
-        let data = await client.get('/shopCom/' + id, { submitType: "findJoin", ref: "shop" });
+        let data = await client.get('/shopCom/' + id, { submitType: "findJoin", ref: ["shop","supplier"] });
         
         res.send(data);
     }
@@ -57,7 +57,7 @@ router.get('/:id', async function (req, res) {
 router.post("/", async function (req, res) {
     let { comName, comKind, comComponent, comSpecifications, exclusiveSpecifications, packingSpecifications,
         Flavor, specialFunctions, place, dateProduction, qualityDate, supplyNumber, characteristicText, price,
-        productBigImg, productSmallImg, shopComNum, type, shopId } = req.body;
+        productBigImg, productSmallImg, shopComNum, type, shopId,supplierId } = req.body;
     // productSmallImg = productSmallImg && JSON.parse(productSmallImg)
     if (type == "fromSupplierCom") {
         //data是一个数组
@@ -67,6 +67,10 @@ router.post("/", async function (req, res) {
             productBigImg, productSmallImg, shopComNum, shop: {
                 $ref: "shop",
                 $id: shopId
+            },
+            supplier: {
+                $ref: "supplier",
+                $id: supplierId
             }
         })
         res.send(data);
@@ -122,7 +126,5 @@ router.post("/upload", function (req, res) {
         }
     });
 });
-
-
 
 module.exports = router;
