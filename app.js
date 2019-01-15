@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 const session = require('express-session');
 
+<<<<<<< HEAD
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var petMasterRouter = require('./routes/petMaster');
@@ -20,7 +21,12 @@ var comSalesCountRouter = require('./routes/comSalesCount');
 var comSalesMoneyRouter = require('./routes/comSalesMoney');
 var ordersRouter = require('./routes/orders');
 var mapRouter = require('./routes/map');
+=======
+>>>>>>> pet2
 
+var usersRouter = require('./routes/users');
+var shoppingRouter = require('./routes/shopping');
+var ordersRouter = require('./routes/orders');
 var app = express();
 
 // view engine setup
@@ -45,6 +51,7 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+<<<<<<< HEAD
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
 app.use('/petMaster', petMasterRouter);
@@ -60,7 +67,12 @@ app.use('/comSalesMoney', comSalesMoneyRouter);
 app.use('/orders', ordersRouter);
 app.use('/map', mapRouter);
 
+=======
+>>>>>>> pet2
 
+app.use('/users', usersRouter);
+app.use('/shopping', shoppingRouter);
+app.use('/orders', ordersRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
