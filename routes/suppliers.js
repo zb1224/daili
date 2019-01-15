@@ -15,6 +15,7 @@ router.get('/', async function (req, res) {
     }
     let data = await client.get('/supplier', { page, rows, submitType: "findJoin", ref: "users","users.$id": usersId, ...serObj })
     res.send(data);
+   console.log(data);
 })
 
 // 根据Id来查询供应商信息

@@ -26,6 +26,22 @@ router.get('/', async function (req, res) {
     }
 });
 
+//查询店主有没有店
+router.get('/shop', async function (req, res) {
+    let {usersId } = req.query;
+    let data = await client.get('/shop', {submitType: "findJoin", ref: "users","users.$id": usersId })
+    res.send(data);
+   console.log(data);
+})
+
+//查询供应商有没有供应公司
+router.get('/supplier', async function (req, res) {
+    let {usersId } = req.query;
+    let data = await client.get('/supplier', {submitType: "findJoin", ref: "users","users.$id": usersId })
+    res.send(data);
+   console.log(data);
+})
+
 //上传图片
 router.post('/upload', function (req, res) {
     let form = new multiparty.Form({
